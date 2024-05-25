@@ -7,7 +7,12 @@ object GetVerse extends App {
   val fileSource = Source.fromFile(filename)
   val bibleString = fileSource.mkString.replace("﻿", "")
   val bibleObject = ujson.read(bibleString)
-  println(bibleObject)
+  bibleObject.arr.foreach(book => {
+    if(book("name").str == "Genesis") {
+      val verse = book("chapters").arr(0)(1)
+      println(verse)
+    }
+  })
 
   fileSource.close()
 }
