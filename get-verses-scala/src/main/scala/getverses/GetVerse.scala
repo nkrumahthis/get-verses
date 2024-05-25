@@ -25,7 +25,8 @@ object GetVerse extends App {
   mode match {
     case "1" =>
       println("you chose 1 step quote finder")
-
+      val locator = new OneStepLocator(bibleObject)
+      locator.executor()
     case "2" =>
       println("you chose 3 step quote finder")
       val locator = new ThreeStepLocator(bibleObject)
