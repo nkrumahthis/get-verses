@@ -1,4 +1,4 @@
-package example
+package getverses
 
 class HelloSpec extends munit.FunSuite {
   test("say hello") {
