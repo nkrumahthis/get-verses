@@ -15,7 +15,7 @@ object GetVerse extends App {
   private val chapterInput = readLine("chapter > ")
   private val verseInput = readLine("verse > ")
 
-  bibleObject.arr.find(book => book("name").str == bookInput) match {
+  bibleObject.arr.find(book => book("name").str.toUpperCase == bookInput.toUpperCase) match {
     case Some(book) =>
       val verse = book("chapters").arr(chapterInput.toInt - 1)(verseInput.toInt - 1)
       println(verse)
