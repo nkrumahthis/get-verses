@@ -2,25 +2,35 @@ package getverses
 
 import scala.io.Source
 import scala.io.StdIn.readLine
+import getverses.ThreeStepLocator
 
 object GetVerse extends App {
-  val filename = "data/en_bbe.json"
-  val fileSource = Source.fromFile(filename)
-  val bibleString = fileSource.mkString.replace("﻿", "")
-  val bibleObject = ujson.read(bibleString)
+  private val filename = "data/en_bbe.json"
 
-  println("Enter the book, chapter and verse to show")
-
-  private val bookInput = readLine("book > ")
-  private val chapterInput = readLine("chapter > ")
-  private val verseInput = readLine("verse > ")
-
-  bibleObject.arr.find(book => book("name").str.toUpperCase == bookInput.toUpperCase) match {
-    case Some(book) =>
-      val verse = book("chapters").arr(chapterInput.toInt - 1)(verseInput.toInt - 1)
-      println(verse)
-    case None => println(s"Book $bookInput not found")
-  }
-
+  private val fileSource = Source.fromFile(filename)
+  private val bibleString = fileSource.mkString.replace("﻿", "")
   fileSource.close()
+
+  private val bibleObject = ujson.read(bibleString)
+
+  println(
+    """
+      |Welcome to Get-Verse
+      | [1] 1 step quote finder
+      | [2] 3 step quote finder
+      | [3] search for verses
+      |""".stripMargin)
+  private val mode = readLine("> ")
+
+  mode match {
+    case "1" =>
+      println("you chose 1 step quote finder")
+
+    case "2" =>
+      println("you chose 3 step quote finder")
+      val locator = new ThreeStepLocator(bibleObject)
+      locator.executor()
+    case "3" =>
+      println("you chose to search for verses")
+  }
 }
