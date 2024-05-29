@@ -21,13 +21,14 @@ class OneStepLocator(bibleObject: Value.Value) extends Locator(bibleObject) {
 
     val chapterAndVerse = pieces(1).split(":")
 
-    if(chapterAndVerse.length != 2) {
-      println("format should be {book} {chapter}:{verse}")
+    val chapterNumber = chapterAndVerse(0)
+    val verseNumber = chapterAndVerse(1)
+    if(chapterAndVerse.length != 2 || !chapterNumber.forall(_.isDigit) || !verseNumber.forall(_.isDigit)) {
+      println("format should be {book} {chapter}:{verse}. eg Genesis 1:1")
       return
     }
 
-    val chapterNumber = chapterAndVerse(0)
-    val verseNumber = chapterAndVerse(1)
+
 
     this.locate(bookName, chapterNumber, verseNumber) match {
       case Some(verse) => println(verse)
