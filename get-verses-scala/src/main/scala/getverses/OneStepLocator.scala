@@ -12,21 +12,27 @@ class OneStepLocator(bibleObject: Value.Value) extends Locator(bibleObject) {
 
     val pieces = addressInput.split(" ")
 
-    if (pieces.length != 2) {
-      println("format should be {book} {chapter}:{verse}")
+    if (pieces.length != 2 || !pieces(1).contains(":")) {
+      println("format should be {book} {chapter}:{verse}. eg Genesis 1:1")
       return
     }
 
     val bookName = pieces(0)
 
-    val numbers = pieces(1).split(":")
+    val chapterAndVerse = pieces(1).split(":")
 
-    if(numbers.length != 2) {
+    if(chapterAndVerse.length != 2) {
       println("format should be {book} {chapter}:{verse}")
       return
     }
-    val verse = this.locate(bookName, numbers(0), numbers(1))
 
-    println(verse)
+    val chapterNumber = chapterAndVerse(0)
+    val verseNumber = chapterAndVerse(1)
+
+    this.locate(bookName, chapterNumber, verseNumber) match {
+      case Some(verse) => println(verse)
+      case None => println(s"Verse not found at ${bookName} ${chapterNumber}:${verseNumber}")
+    }
+
   }
 }
