@@ -31,7 +31,7 @@ class OneStepLocator(bibleObject: Value.Value) extends Locator(bibleObject) {
 
     this.locate(bookName, chapterNumber, verseNumber) match {
       case Some(verse) => println(verse)
-      case None => println(s"Verse not found at ${bookName} ${chapterNumber}:${verseNumber}")
+      case None => println(s"Verse not found at $bookName $chapterNumber:$verseNumber")
     }
 
   }
