@@ -34,6 +34,8 @@ object GetVerse extends App {
         locator.executor()
       case "3" =>
         println("you chose to search for verses")
+        val searcher = new Searcher(bibleObject)
+        searcher.executor()
     }
   }
 }

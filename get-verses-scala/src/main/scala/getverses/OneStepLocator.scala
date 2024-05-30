@@ -6,9 +6,7 @@ import scala.io.StdIn.readLine
 
 class OneStepLocator(bibleObject: Value.Value) extends Locator(bibleObject) {
   def executor(): Unit = {
-    println("Enter {book} {chapter}:{verse}")
-
-    val addressInput = readLine("address > ")
+    val addressInput = readLine("Enter {book} {chapter}:{verse} > ")
 
     val pieces = addressInput.split(" ")
 
@@ -27,8 +25,6 @@ class OneStepLocator(bibleObject: Value.Value) extends Locator(bibleObject) {
       println("format should be {book} {chapter}:{verse}. eg Genesis 1:1")
       return
     }
-
-
 
     this.locate(bookName, chapterNumber, verseNumber) match {
       case Some(verse) => println(verse)
